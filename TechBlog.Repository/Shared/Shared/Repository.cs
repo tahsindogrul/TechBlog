@@ -6,11 +6,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TechBlog.Data;
+using TechBlog.Models;
 using TechBlog.Repository.Shared.Abstract;
 
 namespace TechBlog.Repository.Shared.Shared
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : BaseModel
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _dbSet;
@@ -30,18 +31,18 @@ namespace TechBlog.Repository.Shared.Shared
             return entity;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            var item= _dbSet.Find(id);
-            _dbSet.Remove(item);
-            Save();
-            return;
+            T entity = _dbSet.Find(id);
+            entity.IsDeleted = true;
+            Update(entity);
+            return true;
           
         }
 
         public IQueryable<T> GetAll()
         {
-            return _dbSet;
+            return _dbSet.Where(x => !x.IsDeleted);
         }
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
