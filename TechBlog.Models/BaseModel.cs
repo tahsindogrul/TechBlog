@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TechBlog.Models
 {
-    public class Category: BaseModel
+    public class BaseModel
     {
-     
-        public string Name { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
+        public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        
     }
 }
