@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 using TechBlog.Data;
-using TechBlog.Repository.Shared.Abstract;
-using TechBlog.Repository.Shared.Shared;
 using TechBlog.Business.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +13,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.BusinessDI();
 builder.Services.RepositoryDI();
+builder.Services.BusinessDI();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+    options.LogoutPath = "/User/Login";
+    options.Cookie.Name = "TechCookie";
+    options.SlidingExpiration = true;
+});
+
 
 var app = builder.Build();
 
@@ -32,6 +39,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

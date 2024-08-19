@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace TechBlog.Web.Areas.Admin.Controllers
 {
-    public class HomeController : AdminBaseController
+    public class UserController : AdminBaseController
     {
         public IActionResult Index()
         {
