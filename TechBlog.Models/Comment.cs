@@ -13,8 +13,8 @@ namespace TechBlog.Models
         public DateTime DateCreated { get; set; }= DateTime.Now;
         public int PostId { get; set; }
         public virtual Post Post { get; set; }
-        public int AppUserId { get; set; }
-        public virtual AppUser AppUser { get; set; }
+        public int UserId { get; set; }
+        public virtual AppUser User { get; set; }
 
     }
 }

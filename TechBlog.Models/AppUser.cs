@@ -16,9 +16,9 @@ namespace TechBlog.Models
         public bool IsAdmin { get; set; }=false;
         public DateTime DateCreated { get; set; }= DateTime.Now;
         public DateTime DateUpdated { get; set; } = DateTime.Now;
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }= new List<Post>();
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 }
