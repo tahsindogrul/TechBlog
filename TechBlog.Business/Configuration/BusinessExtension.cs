@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TechBlog.Business.Abstract;
 using TechBlog.Business.Concrete;
 using TechBlog.Repository.Shared.Abstract;
+using TechBlog.Repository.Shared.Shared;
 
 
 namespace TechBlog.Business.Configuration
@@ -24,7 +25,7 @@ namespace TechBlog.Business.Configuration
 
         public static void RepositoryDI(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<>), typeof(IRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
         
     }
