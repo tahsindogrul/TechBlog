@@ -10,13 +10,13 @@ using TechBlog.Repository.Shared.Abstract;
 
 namespace TechBlog.Business.Concrete
 {
-    public class CommentServices:Services<Comment>,ICommentServices
+    public class PostService:Service<Post>,IPostService
     {
-        private readonly IRepository<Comment> _commentRepo;
+        private readonly IRepository<Post> _postRepo;
 
-        public CommentServices(IRepository<Comment> commentRepo):base(commentRepo)
+        public PostService(IRepository<Post> postRepo):base(postRepo) 
         {
-            _commentRepo = commentRepo;
+            _postRepo = postRepo;
         }
     }
 }

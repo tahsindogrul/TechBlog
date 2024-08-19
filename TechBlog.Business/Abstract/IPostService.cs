@@ -8,7 +8,7 @@ using TechBlog.Models;
 
 namespace TechBlog.Business.Abstract
 {
-    public interface IPostServices:IServices<Post>
+    public interface IPostService:IService<Post>
     {
     }
 }

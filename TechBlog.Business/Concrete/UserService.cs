@@ -10,11 +10,11 @@ using TechBlog.Repository.Shared.Abstract;
 
 namespace TechBlog.Business.Concrete
 {
-    public class UserServices:Services<AppUser>,IUserServices
+    public class UserService:Service<AppUser>,IUserService
     {
         private readonly IRepository<AppUser> _userRepo;
 
-        public UserServices(IRepository<AppUser> userRepo) : base(userRepo)
+        public UserService(IRepository<AppUser> userRepo) : base(userRepo)
         {
             _userRepo = userRepo;
         }

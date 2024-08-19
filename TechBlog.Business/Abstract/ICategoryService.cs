@@ -8,7 +8,7 @@ using TechBlog.Models;
 
 namespace TechBlog.Business.Abstract
 {
-    public interface ICategoryServices: IServices<Category>
+    public interface ICategoryService: IService<Category>
     {
     }
 }

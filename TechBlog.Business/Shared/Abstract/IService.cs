@@ -8,7 +8,7 @@ using TechBlog.Models;
 
 namespace TechBlog.Business.Shared.Abstract
 {
-    public interface IServices<T> where T : BaseModel
+    public interface IService<T> where T : BaseModel
     {
         ICollection<T> GetAll();
         T GetById(int id);

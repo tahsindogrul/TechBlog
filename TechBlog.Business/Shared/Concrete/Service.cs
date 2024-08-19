@@ -10,11 +10,11 @@ using TechBlog.Repository.Shared.Abstract;
 
 namespace TechBlog.Business.Shared.Concrete
 {
-    public class Services<T> : IServices<T> where T : BaseModel
+    public class Service<T> : IService<T> where T : BaseModel
     {
         private readonly IRepository<T> _repository;
 
-        public Services(IRepository<T> repository)
+        public Service(IRepository<T> repository)
         {
             _repository = repository;
         }
