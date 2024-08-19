@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TechBlog.Business\TechBlog.Business.csproj" />
     <ProjectReference Include="..\TechBlog.Data\TechBlog.Data.csproj" />
     <ProjectReference Include="..\TechBlog.Repository\TechBlog.Repository.csproj" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using NuGet.Protocol.Core.Types;
 using TechBlog.Data;
 using TechBlog.Repository.Shared.Abstract;
 using TechBlog.Repository.Shared.Shared;
+using TechBlog.Business.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.BusinessDI();
+builder.Services.RepositoryDI();
 
 var app = builder.Build();
 
