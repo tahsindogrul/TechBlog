@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TechBlog.Web.Areas.Admin.Controllers
 {
@@ -8,5 +9,7 @@ namespace TechBlog.Web.Areas.Admin.Controllers
         {
             return View();
         }
+
+    
     }
 }
