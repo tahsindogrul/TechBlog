@@ -18,5 +18,10 @@ namespace TechBlog.Business.Concrete
         {
             _postRepo = postRepo;
         }
+
+        public IEnumerable<Post> GetPostsByCategory(int categoryId)
+        {
+            return base.GetAll(p=>p.CategoryId == categoryId);
+        }
     }
 }
