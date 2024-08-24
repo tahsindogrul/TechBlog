@@ -44,7 +44,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Post}/{action=HomePage}/{id?}");
 
 app.MapControllerRoute(
             name: "areas",
