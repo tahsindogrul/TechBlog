@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Category>
+
+<ul>
+    @foreach (var category in Model)
+    {
+        <li>
+            <a href="@Url.Action("GetCategory", "Category", new { id = category.Id })" class="category-widget">
+                @category.Name
+            </a>
+        </li>
+    }
+</ul>
