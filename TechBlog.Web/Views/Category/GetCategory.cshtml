@@ -1,0 +1,12 @@
+﻿@model CategoryPostViewModel
+
+<h1>@Model.Category.Name</h1>
+
+<ul>
+    @foreach (var post in Model.Posts)
+    {
+        <li>
+            <a href="@Url.Action("PostDetails", "Post", new { id = post.Id })">@post.Title</a>
+        </li>
+    }
+</ul>

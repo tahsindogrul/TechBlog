@@ -14,11 +14,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+    <PackageReference Include="X.PagedList" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TechBlog.Business\TechBlog.Business.csproj" />
     <ProjectReference Include="..\TechBlog.Data\TechBlog.Data.csproj" />
+    <ProjectReference Include="..\TechBlog.Dtos\TechBlog.Dtos.csproj" />
     <ProjectReference Include="..\TechBlog.Repository\TechBlog.Repository.csproj" />
   </ItemGroup>
 
