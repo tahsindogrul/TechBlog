@@ -1,0 +1,20 @@
+﻿@model TechBlog.Models.Post
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Title - Post Details</title>
+</head>
+<body>
+    <div class="container mt-5 col-md-10">
+        <h1 class="text-center">@Model.Title</h1>
+        <img src="https://via.placeholder.com/800x300" class="img-fluid " alt="Post Image">
+        <p class="mt-4">@Model.Content</p>
+        <a href="/" class="btn btn-secondary mt-4">Back to List</a>
+     
+    </div>
+</body>
+</html>
