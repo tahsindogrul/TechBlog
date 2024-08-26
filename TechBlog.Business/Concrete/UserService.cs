@@ -18,7 +18,7 @@ namespace TechBlog.Business.Concrete
         {
             _userRepo = userRepo;
         }
-
+         
         public AppUser CheckUser(AppUser appUser)
         {
             return _userRepo.GetAll().Where(x=>x.Email==appUser.Email && 
