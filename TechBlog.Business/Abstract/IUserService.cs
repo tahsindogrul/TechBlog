@@ -14,4 +14,3 @@ namespace TechBlog.Business.Abstract
         AppUser GetUserById(int userId);
     }
 }
- 
