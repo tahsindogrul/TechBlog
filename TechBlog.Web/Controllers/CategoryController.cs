@@ -39,7 +39,7 @@ namespace TechBlog.Web.Controllers
                     User = p.User,
                    
                     
-                }).ToList(),
+                }).ToList(), 
             };
      
             return View(model);
