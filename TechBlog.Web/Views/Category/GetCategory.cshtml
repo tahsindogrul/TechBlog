@@ -1,38 +1,12 @@
 ﻿@model CategoryPostViewModel
 
+<h1>@Model.Category.Name</h1>
 
-<div class="section ">
-    <div class="container  ">
-        <h1 class="text-uppercase ">
-            <a href="#">@Model.Category.Name</a>
-        </h1>
-        @foreach(var post in Model.Posts){
-        <div class="post post-row">
-                <a class="post-img" href="@Url.Action("PostDetails", "Post", new { id = post.Id })"> <img src="~/assets/images/post-12.jpg" alt=""></a>
-                <div class="post-body">
-              
-                   
-                    <h3 class="post-title"><a href="@Url.Action("PostDetails", "Post", new { id = post.Id })">@post.Title</a></h3>
-                <ul class="post-meta">
-                    <li><a href="#">@post.User.UserName</a></li>
-                        <li>@post.DateCreated.ToShortDateString()</li>
-                </ul>
-                <p>
-                        @if (!string.IsNullOrEmpty(post.Content) && post.Content.Length > 200)
-                        {
-                            <span > @post.Content.Substring(0, 200)</span>
-                            <a href="@Url.Action("PostDetails", "Post", new { id = post.Id })" class=" text-danger fs-5">....</a>
-                            
-                        }
-                        else
-                        {
-                            @post.Content
-                        }
-                </p>
-            </div>
-        </div>
-        }
-    </div>
-
-</div>
-
+<ul>
+    @foreach (var post in Model.Posts)
+    {
+        <li>
+            <a href="@Url.Action("PostDetails", "Post", new { id = post.Id })">@post.Title</a>
+        </li>
+    }
+</ul>

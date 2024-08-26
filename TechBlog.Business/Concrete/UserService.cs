@@ -24,10 +24,5 @@ namespace TechBlog.Business.Concrete
             return _userRepo.GetAll().Where(x=>x.Email==appUser.Email && 
             x.Password==appUser.Password).FirstOrDefault();
         }
-
-        public AppUser GetUserById(int userId)
-        {
-            return _userRepo.GetById(userId);
-        }
     }
 }

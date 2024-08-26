@@ -9,13 +9,11 @@ namespace TechBlog.Web.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IPostService _postService;
-        private readonly IUserService _userService;
 
-        public CategoryController(ICategoryService categoryService, IPostService postService, IUserService userService)
+        public CategoryController(ICategoryService categoryService, IPostService postService)
         {
             _categoryService = categoryService;
             _postService = postService;
-            _userService = userService;
         }
 
         public IActionResult GetCategory(int id)
@@ -26,20 +24,11 @@ namespace TechBlog.Web.Controllers
             {
                 return NotFound();
             }
-            var posts = _postService.GetPostsByCategory(id);         
+            var posts = _postService.GetPostsByCategory(id);
             var model = new CategoryPostViewModel
             {
                 Category = category,
-                Posts = posts.Select(p=>new Post
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Content = p.Content,
-                    DateCreated = p.DateCreated,
-                    User = p.User,
-                   
-                    
-                }).ToList(),
+                Posts = posts
             };
      
             return View(model);
