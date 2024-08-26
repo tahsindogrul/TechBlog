@@ -31,7 +31,7 @@ namespace TechBlog.Web.Controllers
 
             return View(post);
         }
-       
+        
        
     }
 }
