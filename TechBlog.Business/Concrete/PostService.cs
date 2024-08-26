@@ -35,7 +35,7 @@ namespace TechBlog.Business.Concrete
             return posts;
         }
 
-
+         
         public IEnumerable<Post> GetRecentPosts(int count)
         {
             var recentpost= _postRepo.GetAll().OrderByDescending(p=>p.DateCreated).Take(count).ToList();

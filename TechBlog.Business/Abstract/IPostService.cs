@@ -13,6 +13,6 @@ namespace TechBlog.Business.Abstract
         IEnumerable<Post> GetPostsByCategory(int categoryId);
         IEnumerable<Post> GetRecentPosts(int count);
      
-    }
+    } 
 
 }
