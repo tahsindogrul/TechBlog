@@ -10,6 +10,7 @@ namespace TechBlog.Business.Abstract
 {
     public interface IUserService:IService<AppUser>
     {
-        AppUser CheckUser(AppUser appUser);   
+        AppUser CheckUser(AppUser appUser);
+        AppUser GetUserById(int userId);
     }
 }
