@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using TechBlog.Web.Areas.Admin.Controllers;
 
 namespace TechBlog.Web.Areas.User.Controllers
 {
-    [Area("User")]
-	[Authorize(Roles = "User")]
-	public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+
+	public class HomeController : UserBaseController
+	{
+		public IActionResult Index()
+		{
+			string userid=User.FindFirstValue(ClaimTypes.NameIdentifier);
+			return View();
+		}
+	}
 }
