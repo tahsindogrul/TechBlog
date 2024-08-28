@@ -15,7 +15,7 @@ namespace TechBlog.Web.Controllers
 
         public IActionResult HomePage()
         {
-            var recentPosts = _postService.GetRecentPosts(4); 
+            var recentPosts = _postService.GetRecentPosts(10); 
            
             return View(recentPosts);
 
