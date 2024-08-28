@@ -42,6 +42,7 @@ namespace TechBlog.Web.Controllers
                 List<Claim> claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Email, loginAppUser.Email));
                 claims.Add(new Claim(ClaimTypes.Name, loginAppUser.UserName));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier,loginAppUser.Id.ToString()));
                 claims.Add(new Claim(ClaimTypes.Role, loginAppUser.IsAdmin ? "Admin" : "User"));
 
                 ClaimsIdentity identity = new ClaimsIdentity(claims, "Login");
