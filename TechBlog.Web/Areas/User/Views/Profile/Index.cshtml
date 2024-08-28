@@ -1,0 +1,191 @@
+﻿@model TechBlog.Models.AppUser;
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+
+<div>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    @* Modal Baslangici *@
+                    <h5 class="modal-title" id="editModalLabel">Profili Düzenle</h5>
+                    <button type="button"  id="xButton" class="btn-close" data-bs-dismiss="editModal" data-toggle="modal" aria-label="Close">
+                       
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" class="needs-validation">
+                        <input type="hidden" id="appUserId" value="@Model.Id" />
+
+
+                        <div class="form-group">
+                            <label for="modalUserName" class="col-form-label">UserName:</label>
+                            <input type="text" class="form-control" id="modalUserName">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modalEmail" class="col-form-label">Email:</label>
+                            <input type="text" class="form-control" id="modalEmail">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modalPassword" class="col-form-label">Password:</label>
+                            <input type="text" class="form-control" id="modalPassword" required pattern=".{8,}" title="Lutfen en az 8 karakter giriniz" minlength="8">
+
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="hideButton">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container rounded bg-secondary mt-3 mb-3 ">
+        <div class="row">
+            <div class="col-md-3 border">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    @if (Model.ProfilePicture != null)
+                    {
+                        <img class="rounded-circle mt-5 mb-1" width="150px" id="pp" src="~/images/profile/@Model.ProfilePicture" />
+                    }
+
+
+                    <div class="input-group mb-3">
+
+
+                        <label class="btn btn-success hidden" id="saveProfilePicture">Save</label>
+                        <label class="btn btn-outline-success " style="width:50px" for="inputProfilePicture">
+                            <i class="bi bi-pencil"></i>
+                        </label>
+                    </div>
+
+                    <input type="file" class="form-control hidden" id="inputProfilePicture">
+
+
+
+                </div>
+            </div>
+            <div class="col-md-8 border-left">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Options</h4>
+                    </div>
+                    <div class="row mt-3 col-md-12">
+                        <div class="col-md-12 mb-3">
+                            <label class="labels">Username</label>
+                            <div class="input-group">
+                                <input disabled type="text" class="form-control" id="usr" placeholder="UserName" value="@Model.UserName" name="UserName" readonly>
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="labels">Email</label>
+                            <div class="input-group">
+                                <input disabled type="text" class="form-control " id="email" placeholder="Email" value="@Model.Email" name="Email" readonly>
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="labels">Password</label>
+                            <div class="input-group">
+                                <input disabled type="password" class="form-control" id="psw" placeholder="Şifre Giriniz" value="@Model.Password" name="Password" readonly>
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <button class="btn btn-success" style="width:150px" id="editButton" type="button" data-toggle="modal" data-bs-target="#editModal">
+                        Edit
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    @section Scripts {
+        <script>
+
+            $(document).ready(function () {
+
+                $('#editButton').on('click', function () {
+                    $('#modalPassword').val($('#psw').val());
+                    $('#modalEmail').val($('#email').val());
+                    $('#modalUserName').val($('#usr').val());
+                    $('#editModal').modal('show');
+                });
+
+
+                $('#saveButton').on('click', function () {
+                    if ($("#modalPassword").val().length < 8) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Uyarı',
+                            text: 'Lütfen şifre alanını doldurunuz ve en az 8 karakter giriniz.',
+                        });
+                        return;
+                    }
+
+
+                    $('#psw').val($('#modalPassword').val());
+                    $('#email').val($('#modalEmail').val());
+                    $('#usr').val($('#modalUserName').val());
+
+
+                    $.ajax({
+                        url: 'ProfileUpdate',
+                        method: 'POST',
+                        data: {
+                            id: $("#appUserId").val(),
+                            username: $("#modalUserName").val(),
+                            password: $("#modalPassword").val(),
+                            email: $("#modalEmail").val(),
+
+                        },
+                        success: function (response) {
+                            console.log('Profil başarıyla güncellendi.');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+
+
+                    $('#editModal').modal('hide');
+                });
+
+
+
+                $('#hideButton').on('click', function () {
+                    $('#editModal').modal('hide');
+                });
+
+                $('#xButton').on('click', function () {
+                    $('#editModal').modal('hide');
+                });
+            });
+
+
+                        
+
+
+        </script>
+    }
+
