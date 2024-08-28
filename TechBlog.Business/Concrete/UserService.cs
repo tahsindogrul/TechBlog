@@ -29,5 +29,15 @@ namespace TechBlog.Business.Concrete
         {
             return _userRepo.GetById(userId);
         }
+
+        public AppUser ProfileUpdate(AppUser user)
+        {
+           var currentUser =GetFirstOrDefault(u=>u.Id==user.Id);
+
+            currentUser.UserName = user.UserName;
+            currentUser.Email = user.Email;
+            currentUser.Password = user.Password;
+            return Update(currentUser);
+        }
     }
 }

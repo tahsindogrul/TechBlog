@@ -12,5 +12,7 @@ namespace TechBlog.Business.Abstract
     {
         AppUser CheckUser(AppUser appUser);
         AppUser GetUserById(int userId);
+
+        AppUser ProfileUpdate(AppUser appUser);
     }
 }
