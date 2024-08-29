@@ -1,0 +1,67 @@
+﻿@model TechBlog.Models.ViewModels.PostCreateViewModel 
+
+<form id="createPostForm">
+    <div class="form-group">
+        <label for="title">Başlık:</label>
+        <input type="text" class="form-control" id="title" name="Title" required>
+    </div>
+    <div class="form-group">
+        <label for="content">İçerik:</label>
+        <textarea class="form-control" id="content" name="Content" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="selectedcategoryıd">Kategori:</label>
+        <select class="form-control" id="category" name="SelectedCategoryId" >
+            <option value="">Kategori Seçiniz</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Value">@category.Text</option>
+            }
+        </select>
+    </div>
+
+    <input type="hidden" id="userId" name="UserId" value="@Model.UserId" />
+    <button type="submit" class="btn btn-primary">Gönder</button>
+</form>
+
+<div id="responseMessage"></div>
+
+
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $('#createPostForm').on('submit', function (e) {
+                e.preventDefault(); // Formun varsayılan submit işlemini engelle
+
+                // Form verilerini topla
+                var formData = $(this).serialize();
+
+                console.log(formData);
+                $.ajax({
+                    url: '/User/Profile/AddPost',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                       
+                            $('#responseMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+                            $('#createPostForm')[0].reset(); // Formu sıfırla
+                       
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        $('#responseMessage').html('<div class="alert alert-danger">Bir hata oluştu: ' + error + '</div>');
+                    }
+                });
+            });
+        });
+
+
+
+
+    </script>
+}
