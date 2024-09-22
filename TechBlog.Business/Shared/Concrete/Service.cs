@@ -42,7 +42,7 @@ namespace TechBlog.Business.Shared.Concrete
             return _repository.GetAll(predicate).ToList();
         }
 
-        public T GetById(int id)
+        public  virtual T GetById(int id)
         {
             return _repository.GetById(id);
         }
