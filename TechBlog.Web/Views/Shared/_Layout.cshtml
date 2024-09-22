@@ -10,11 +10,15 @@
 
     <title>TechBlog Ana Sayfa</title>
 
+   
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CMuli:400,700" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="~/assets/css/bootstrap.css" />
+    @* <link type="text/css" rel="stylesheet" href="~/assets/css/bootstrap.css" /> *@
+
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
@@ -62,8 +66,7 @@
                         <div class="dropdown">
                             <div class="dropdown-body">
                                 <ul class="dropdown-list">
-                                    <li><a href="blog-post.html">Post page</a></li>
-                                    <li><a href="/User/Profile/Index">Kullanıcı</a></li>
+                                    <li><a href="blog-post.html">Post page</a></li>                               
                                     <li><a href="contact.html">Contacts</a></li>
                                 </ul>
                             </div>
@@ -78,7 +81,7 @@
                                         <h4 class="dropdown-heading">Categories</h4>
                                         <ul class="dropdown-list">
 
-                                            @await Component.InvokeAsync("Category")
+                                            @await Component.InvokeAsync("ddlCategory")
 
 
                                         </ul>
@@ -92,6 +95,28 @@
                     <li><a href="#">Technology</a></li>
                     <li><a href="#">Health</a></li>
                     <li><a href="#">Travel</a></li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               User: @User.Identity.Name 
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/User/Profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="/User/Profile/PostCreate">Create Post</a></li>
+                                <li><a class="dropdown-item" href="/User/Profile/Posts">My Posts</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);" id="logout-button">Logout</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Login">Login</a>
+                        </li>
+                    }
                 </ul>
                 <!-- /nav -->
             </div>
@@ -218,11 +243,36 @@
             </div>
         </div>
     </footer>
+
+
     <!-- /FOOTER -->
     <!-- JavaScript Libraries -->
     <script src="~/assets/js/jquery.min.js"></script>
-    <script src="~/assets/js/bootstrap.min.js"></script>
+    @* <script src="~/assets/js/bootstrap.min.js"></script> *@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <script src="~/assets/js/main.js"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $("#logout-button").click(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        url: "/User/Logout",
+                        type: "POST",
+                        success: function () {
+                            window.location.href = '/Post/HomePage';
+                        },
+                        error: function () {
+                            alert("An error occurred during logout");
+                        }
+                    });
+                });
+            });
+        </script>
+    
+   
 
     @RenderSection("Scripts", required: false)
 </body>
