@@ -58,13 +58,7 @@
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
 
-                    <!-- App Search-->
-                    <form class="app-search d-none d-lg-block">
-                        <div class="position-relative">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="uil-search"></span>
-                        </div>
-                    </form>
+            
                 </div>
 
                 <div class="d-flex">
@@ -94,18 +88,10 @@
 
                
 
-                    <div class="dropdown d-none d-lg-inline-block ms-1">
-                        <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
-                            <i class="uil-minus-path"></i>
-                        </button>
-                    </div>
+            
 
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="uil-bell"></i>
-                            <span class="badge bg-danger rounded-pill">3</span>
-                        </button>
+                    
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-notifications-dropdown">
                             <div class="p-3">
@@ -203,18 +189,15 @@
                             <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Marcus</span>
                             <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                         </button>
+
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
                             <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
-                            <a class="dropdown-item" href="#"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
+                            <a class="dropdown-item" id="logout-button" href="javascript:void(0)"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
                         </div>
                     </div>
 
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                            <i class="uil-cog"></i>
-                        </button>
-                    </div>
+                 
 
                 </div>
             </div>
@@ -306,6 +289,27 @@
 
     <!-- App js -->
     <script src="~/assets/js/app.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $("#logout-button").click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/User/Logout",
+                    type: "POST",
+                    success: function () {
+                        window.location.href = "/Post/HomePage"
+                    },
+                    error: function () {
+                        alert("An error occurred during logout");
+
+                    }
+                });
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts",false);
 </body>
