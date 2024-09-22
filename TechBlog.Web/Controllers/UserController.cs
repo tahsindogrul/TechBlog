@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Security.Claims;
 using TechBlog.Business.Abstract;
 using TechBlog.Business.Concrete;
@@ -29,44 +30,37 @@ namespace TechBlog.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            AppUser appUser = new AppUser();
-            appUser.Email = loginDTO.Email;
-            appUser.Password = loginDTO.Password;
+            LoginDTO dto = await _userService.Login(loginDTO);
 
-            AppUser loginAppUser = _userService.CheckUser(appUser);
-
-            if (loginAppUser != null)
+            if(dto.Role !=null)
             {
-                List<Claim> claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Email, loginAppUser.Email));
-                claims.Add(new Claim(ClaimTypes.Name, loginAppUser.UserName));
-                claims.Add(new Claim(ClaimTypes.NameIdentifier,loginAppUser.Id.ToString()));
-                claims.Add(new Claim(ClaimTypes.Role, loginAppUser.IsAdmin ? "Admin" : "User"));
-
-                ClaimsIdentity identity = new ClaimsIdentity(claims, "Login");
-
-                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), new AuthenticationProperties
+                if (dto.Role == "Admin")
                 {
-                    IsPersistent = loginDTO.IsRememberMe
-                });
+                    return Redirect("/Admin/Home/Index");
 
-                if (loginAppUser.IsAdmin)
-                {
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home", new { area = "User" });
-
+                    return RedirectToAction("HomePage", "Post");
                 }
             }
-            else
-            {
-                return View();
-            }
+          
+         
+            return RedirectToAction("Login");
+
         }
+
+
+        public async Task<IActionResult> Logout()
+        {
+            await _userService.Logout();
+            return Json(new { success = true });
+        }
+
+
     }
 }
+
