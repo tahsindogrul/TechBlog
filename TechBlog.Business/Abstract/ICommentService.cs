@@ -11,5 +11,6 @@ namespace TechBlog.Business.Abstract
 {
     public interface ICommentService : IService<Comment>
     {
+       
     }
 }
