@@ -20,28 +20,12 @@ namespace TechBlog.Web.Controllers
 
         public IActionResult GetCategory(int id)
         {
-            var category= _categoryService.GetAll().FirstOrDefault(c => c.Id == id);
+            var model = _categoryService.GetCategoryWithPosts(id);
 
-            if (category == null)
+            if (model == null)
             {
                 return NotFound();
             }
-            var posts = _postService.GetPostsByCategory(id);         
-            var model = new CategoryPostViewModel
-            {
-                Category = category,
-                Posts = posts.Select(p=>new Post
-                {
-                    Id = p.Id,
-                    Title = p.Title,
-                    Content = p.Content,
-                    DateCreated = p.DateCreated,
-                    User = p.User,
-                   
-                    
-                }).ToList(), 
-            };
-     
             return View(model);
         }
        
