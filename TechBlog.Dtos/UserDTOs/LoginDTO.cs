@@ -11,5 +11,6 @@ namespace TechBlog.Dtos.UserDTOs
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsRememberMe { get; set; }
+        public string? Role {  get; set; }
     }
 }
