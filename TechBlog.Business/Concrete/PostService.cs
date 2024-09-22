@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +19,17 @@ namespace TechBlog.Business.Concrete
         private readonly IUserService _userService;
       
 
-        public PostService(IRepository<Post> postRepo, IUserService userService) : base(postRepo)
-        {
-            _postRepo = postRepo;
-            _userService = userService;
-            
-        }
 
-        public IEnumerable<Post> GetPostsByCategory(int categoryId)
+		public PostService(IRepository<Post> postRepo, IUserService userService) : base(postRepo)
+		{
+			_postRepo = postRepo;
+			_userService = userService;
+			
+		}
+
+		public IEnumerable<Post> GetPostsByCategory(int categoryId)
         {
-           var posts= base.GetAll(p=>p.CategoryId == categoryId).ToList();
+           var posts= base.GetAll(p=>p.CategoryId == categoryId && p.IsPublished ).ToList();
             foreach(var post in posts)
             {
                 post.User=_userService.GetById(post.UserId);
@@ -47,6 +51,24 @@ namespace TechBlog.Business.Concrete
             return recentpost;
         }
 
-      
-    }
+        public override Post GetById(int id)
+        {
+            return _postRepo.GetAll()
+                .Include(p => p.Comments)
+                .ThenInclude(c => c.User)
+                .FirstOrDefault(p => p.Id == id);
+        }
+
+		public IEnumerable<Post> GetPostsByUserId(int userId)
+		{
+          return  _postRepo.GetAll().Where(p => p.UserId == userId).ToList();
+		}
+
+        public IEnumerable<Post> GetAllPosts()
+        {
+            return _postRepo.GetAll().Where(p=>p.IsPublished).Include(p=>p.User).ToList();
+        }
+
+        
+	}
 }
