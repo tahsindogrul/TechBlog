@@ -1,25 +1,4 @@
 ﻿@model TechBlog.Models.Post
-
-
-@* <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@Model.Title - Post Details</title>
-</head>
-<body>
-    <div class="container mt-5 col-md-10">
-        <h1 class="text-center">@Model.Title</h1>
-        <img src="https://via.placeholder.com/800x300" class="img-fluid " alt="Post Image">
-        <p class="mt-4">@Model.Content</p>
-        <a href="/" class="btn btn-secondary mt-4">Back to List</a>
-     
-    </div>
-</body>
-</html> *@
-
-
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
@@ -64,95 +43,60 @@
 					</div>
 				</div>
 				<!-- /post author -->
-			
-				<!-- post comments -->
-				<div class="section-row">
-					<div class="section-title">
-						<h3 class="title">3 Comments</h3>
-					</div>
-					<div class="post-comments">
-						<!-- comment -->
-						<div class="media">
-							<div class="media-left">
-								<img class="media-object" src="~/assets/images/avatar-2.jpg" alt="">
-							</div>
-							<div class="media-body">
-								<div class="media-heading">
-									<h4>John Doe</h4>
-									<span class="time">5 min ago</span>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-							
-								<!-- comment -->
-								<div class="media media-author">
-									<div class="media-left">
-										<img class="media-object" src="~/assets/images/avatar-1.jpg" alt="">
-									</div>
-									<div class="media-body">
-										<div class="media-heading">
-											<h4>John Doe</h4>
-											<span class="time">5 min ago</span>
-										</div>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-										
-									</div>
-								</div>
-								<!-- /comment -->
-							</div>
-						</div>
-						<!-- /comment -->
-						<!-- comment -->
-						<div class="media">
-							<div class="media-left">
-								<img class="media-object" src="~/assets/images/avatar-3.jpg" alt="">
-							</div>
-							<div class="media-body">
-								<div class="media-heading">
-									<h4>John Doe</h4>
-									<span class="time">5 min ago</span>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-								
-							</div>
-						</div>
-						<!-- /comment -->
-					</div>
-				</div>
-				<!-- /post comments -->
+			<!-- post comments -->
+	<div class="section-row">
+    <div class="section-title">
+        <h3 class="title">@Model.Comments.Count() Comments</h3>
+    </div>
+    <div class="post-comments">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="media mb-4 p-3 border rounded bg-light">
+                <img class="mr-3 rounded-circle" src="~/assets/images/avatar-2.jpg" alt="User Avatar" style="width: 50px; height: 50px;">
+							<span class="fs-5 text-danger">@comment.User.UserName</span>
+                <div class="media-body">
+                    <div class="d-flex justify-content-between align-items-center">                  
+                    </div>
+                    <p class="mt-2">@comment.Content</p>
+                    <p class="text-muted small mb-0 text-end">@comment.DateCreated.ToShortDateString()</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+			<!-- /post comments -->
+
+
 				<!-- post reply -->
 				<div class="section-row">
 					<div class="section-title">
-						<h3 class="title">Leave a reply</h3>
+						<h3 class="title">Yorum Yap</h3>
 					</div>
-					<form class="post-reply">
+					
+					<form  asp-action="SubmitComment" asp-controller="Comment"  method="post" class="post-reply">
+						<input type="hidden" name="PostId" value="@Model.Id" />
+					
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<textarea class="input" name="message" placeholder="Message"></textarea>
+									<textarea class="input" name="Content" placeholder="Yorumunuz" ></textarea>
 								</div>
+
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<input class="input" type="text" name="name" placeholder="Name">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<input class="input" type="email" name="email" placeholder="Email">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<input class="input" type="text" name="website" placeholder="Website">
-								</div>
-							</div>
+
 							<div class="col-md-12 mt-3">
-								<button class="primary-button">Submit</button>
+								<button class="primary-button">Gönder</button>
 							</div>
 
 						</div>
 					</form>
 				</div>
+		
+
 				<!-- /post reply -->
 			</div>
 		
