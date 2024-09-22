@@ -37,6 +37,7 @@ body {
   color: #505050;
   font-weight: 400;
   overflow-x: hidden;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -68,10 +69,13 @@ p {
   margin: 0px 0px 20px;
 }
 
+
+
 a {
-  color: #11151c;
-  -webkit-transition: 0.2s color;
-  transition: 0.2s color;
+	color: #11151c;
+	-webkit-transition: 0.2s color;
+	transition: 0.2s color;
+	text-decoration: none !important;
 }
 
 a:hover, a:focus {
