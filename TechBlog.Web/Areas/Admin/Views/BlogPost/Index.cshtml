@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TechBlog.Models.Post>
+
+<div class="section">
+    <div class="container">
+        <h1 class="text-uppercase">
+            Posts
+        </h1>
+        <div class="row mt-3">
+            @foreach (var post in Model)
+            {
+                <div class="col-md-4 mb-4">
+             
+                    <div class="card post">
+                     
+                        <a href="@Url.Action("PostDetails", "Post", new { id = post.Id })">
+                            <img src="~/assets/images/post-12.jpg" class="card-img-top" alt="">
+                        </a>
+                        <div class="card-body">
+                         
+                            <h5 class="card-title">
+                                <a href="AdminPostEdit?id=@post.Id">@post.Title</a>
+                            </h5>
+                            <ul class="list-unstyled post-meta">
+                                <li>@post.User.UserName</li>
+                                <li>@post.DateCreated.ToShortDateString()</li>
+                            </ul>
+                            <p class="card-text">
+                                @if (!string.IsNullOrEmpty(post.Content) && post.Content.Length > 200)
+                                {
+                                    <span>@post.Content.Substring(0, 200)...</span>
+                                   
+                                }
+                                else
+                                {
+                                    @post.Content
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
