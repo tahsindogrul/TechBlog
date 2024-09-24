@@ -1,0 +1,70 @@
+﻿@model TechBlog.Models.Post;
+
+
+<div class="container mt-5">
+    <h2>Post Düzenleme</h2>
+    <form id="postEditForm" class="form-horizontal">
+        <div class="form-group">
+            <label for="Title">Başlık</label>
+            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Content">İçerik</label>
+            <textarea class="form-control" id="Content" name="Content" rows="5" required>@Model.Content</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="Category">Kategori</label>
+            <select class="form-control" id="Category" name="CategoryId">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.Id" selected="@(category.Id == Model.CategoryId ? "selected" : null)">
+                        @category.Name
+                        </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mt-4">
+            <button type="button" id="savePostBtn" class="btn btn-success">Update</button>
+        </div>
+    </form>
+
+    <div id="responseMessage" class="mt-3"></div>
+</div>
+
+
+
+@section Scripts {
+    
+    <script>
+        $(document).ready(function () {
+            $('#savePostBtn').click(function () {
+                var formData = {
+                    Id: '@Model.Id',
+                    Title: $('#Title').val(),
+                    Content: $('#Content').val(),
+                    CategoryId: $('#Category').val()
+                };
+
+                $.ajax({
+                    url: 'AdminPostEdit',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#responseMessage').html('<div class="alert alert-success">Post updated successfully.</div>');
+                            
+                        } else {
+                            $('#responseMessage').html('<div class="alert alert-danger">Update failed. Please try again.</div>');
+                        }
+                    },
+                    error: function () {
+                        $('#responseMessage').html('<div class="alert alert-danger">An error occurred. Please try again.</div>');
+                    }
+                });
+            });
+        });
+    </script>
+}
