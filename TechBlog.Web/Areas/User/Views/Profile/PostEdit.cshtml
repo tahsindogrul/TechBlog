@@ -1,0 +1,34 @@
+﻿@model TechBlog.Models.ViewModels.PostEditViewModel;
+
+<h2>Post Düzenle</h2>
+
+<form action="PostEdit" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" required />
+    </div>
+    <div class="form-group">
+        <label for="Content">Content</label>
+        <textarea class="form-control" id="Content" name="Content" required>@Model.Content</textarea>
+    </div>
+
+
+      
+   <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select class="form-control" id="CategoryId" name="CategoryId" required>
+            <option value="">Please select a category</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id" selected="@(category.Id == Model.CategoryId ? "selected" : null)">
+                    
+                    @category.Name
+                </option>
+            }
+        </select>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TechBlog.Models.Post>
+
+<h2>Kullanıcı Postları</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>İçerik</th>
+            <th>Tarih</th>
+            <th>Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>@post.Content</td>
+                <td>@post.DateCreated.ToShortDateString()</td>
+                <td>
+                    <a href="PostEdit?id=@post.Id" class="btn btn-primary">Düzenle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
