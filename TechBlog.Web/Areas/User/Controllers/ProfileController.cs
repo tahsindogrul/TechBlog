@@ -85,7 +85,7 @@ namespace TechBlog.Web.Areas.User.Controllers
             var post = _postService.GetById(id);
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (post == null || post.UserId.ToString() != userId) // Kullanıcı yetkilendirme kontrolü
+            if (post == null || post.UserId.ToString() != userId) 
             {
                 return NotFound();
             }
