@@ -59,5 +59,37 @@ namespace TechBlog.Web.Areas.Admin.Controllers
             return Json(new { success = false, message = "ModelState errors: " + string.Join(", ", errors) });
 
         }
+
+        public IActionResult PendingPosts()
+        {
+            
+            return View(_postService.GetPendingPosts());
+        }
+
+        [HttpPost]
+        public IActionResult ApprovePost(int id)
+        {
+            var post=_postService.GetById(id);
+            if (post != null)
+            {
+                post.IsPublished= true;
+                _postService.Update(post);
+                return Json(new {success= true});
+            }
+            return Json(new { success = false });
+
+        }
+
+        [HttpPost]
+        public IActionResult DeletePost(int id)
+        {
+            var post= _postService.GetById(id);
+            if(post != null)
+            {
+                _postService.Delete(post.Id);
+                return Json(new {success= true});
+            }
+            return Json(new {success= false});
+        }
     }
 }
