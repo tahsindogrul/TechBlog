@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TechBlog.Business.Abstract;
 using TechBlog.Business.Concrete;
 using TechBlog.Repository.Shared.Abstract;
-using TechBlog.Repository.Shared.Shared;
+using TechBlog.Repository.Shared.Concrete;
 
 
 namespace TechBlog.Business.Configuration
