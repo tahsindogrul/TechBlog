@@ -69,6 +69,11 @@ namespace TechBlog.Business.Concrete
             return _postRepo.GetAll().Where(p=>p.IsPublished).Include(p=>p.User).ToList();
         }
 
+        public IEnumerable<Post> GetPendingPosts()
+        {
+            return _postRepo.GetAll().Where(p=>p.IsPublished == false && !p.IsDeleted).Include(p=>p.User).ToList();
+        }
+
         
 	}
 }
