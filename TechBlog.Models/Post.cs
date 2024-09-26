@@ -14,8 +14,8 @@ namespace TechBlog.Models
         public string Content { get; set; }
         public  DateTime DateCreated { get; set; }= DateTime.Now;
         public DateTime DateUpdated { get; set; } = DateTime.Now;
-      
-        public bool IsPublished { get; set; }
+
+        public bool IsPublished { get; set; } = false;
         public int UserId { get; set; }
         public virtual AppUser? User { get; set; }
         public int CategoryId { get; set; }
