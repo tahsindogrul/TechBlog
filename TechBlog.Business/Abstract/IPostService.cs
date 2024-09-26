@@ -14,7 +14,9 @@ namespace TechBlog.Business.Abstract
         IEnumerable<Post> GetRecentPosts(int count);
         IEnumerable<Post> GetPostsByUserId(int userId);
         IEnumerable<Post> GetAllPosts();
+        IEnumerable<Post> GetPendingPosts();
 
-    } 
+
+    }
 
 }
