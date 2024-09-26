@@ -9,7 +9,7 @@ using TechBlog.Data;
 using TechBlog.Models;
 using TechBlog.Repository.Shared.Abstract;
 
-namespace TechBlog.Repository.Shared.Shared
+namespace TechBlog.Repository.Shared.Concrete
 {
     public class Repository<T> : IRepository<T> where T : BaseModel
     {
