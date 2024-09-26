@@ -34,7 +34,7 @@ namespace TechBlog.Business.Shared.Concrete
 
         public ICollection<T> GetAll()
         {
-            return _repository.GetAll().ToList();  
+            return _repository.GetAll().Where(x => x.IsDeleted == false).ToList() ;  
         }
 
         public ICollection<T> GetAll(Expression<Func<T, bool>> predicate)
