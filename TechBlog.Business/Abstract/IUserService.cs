@@ -17,5 +17,6 @@ namespace TechBlog.Business.Abstract
         AppUser GetUserById(int userId);
         Task Logout();
         AppUser ProfileUpdate(AppUser appUser);
+        Task<int> GetUserCountAsync();
     }
 }

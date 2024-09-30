@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,11 @@ namespace TechBlog.Business.Concrete
         public AppUser GetUserById(int userId)
         {
             return _userRepo.GetById(userId);
+        }
+
+        public Task<int> GetUserCountAsync()
+        {
+            return _userRepo.GetAll().Where(u=>u.IsAdmin==false).CountAsync();
         }
 
         public async Task<LoginDTO> Login(LoginDTO loginDTO)
