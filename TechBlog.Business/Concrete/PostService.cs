@@ -42,7 +42,7 @@ namespace TechBlog.Business.Concrete
          
         public IEnumerable<Post> GetRecentPosts(int count)
         {
-            var recentpost= _postRepo.GetAll().OrderByDescending(p=>p.DateCreated).Take(count).ToList();
+            var recentpost= _postRepo.GetAll().Where(p=>p.IsPublished).OrderByDescending(p=>p.DateCreated).Take(count).ToList();
             foreach(var recent in recentpost)
             {
                
@@ -74,6 +74,19 @@ namespace TechBlog.Business.Concrete
             return _postRepo.GetAll().Where(p=>p.IsPublished == false && !p.IsDeleted).Include(p=>p.User).ToList();
         }
 
-        
-	}
+        public Task<int> GetTotalPostCountAsync()
+        {
+            return _postRepo.GetAll().Where(p=>p.IsPublished).CountAsync();
+        }
+
+        public Task<int> GetPendingPostsCountAsync()
+        {
+            return _postRepo.GetAll().Where(p=>p.IsPublished==false).CountAsync();
+        }
+
+        public IEnumerable<Post> GetPopularPosts()
+        {
+            return _postRepo.GetAll().OrderByDescending(p => p.Comments.Count()).Take(3).ToList();
+        }
+    }
 }
