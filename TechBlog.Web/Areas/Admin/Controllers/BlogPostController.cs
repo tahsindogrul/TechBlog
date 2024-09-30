@@ -44,12 +44,12 @@ namespace TechBlog.Web.Areas.Admin.Controllers
 
                 if (existingPost != null)
                 {
-                    // Sadece Title, Content ve CategoryId'yi güncelle
+                   
                     existingPost.Title = post.Title;
                     existingPost.Content = post.Content;
                     existingPost.CategoryId = post.CategoryId;
 
-                    // UserId'yi değiştirmiyoruz
+               
 
                     _postService.Update(existingPost);
                     return Json(new { success = true });
