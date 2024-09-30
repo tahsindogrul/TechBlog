@@ -12,5 +12,6 @@ namespace TechBlog.Business.Abstract
     public interface ICategoryService: IService<Category>
     {
         CategoryPostViewModel GetCategoryWithPosts(int id );
+        Task<int> GetTotalCategoriesCountAsync();
     }
 }

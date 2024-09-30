@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,11 @@ namespace TechBlog.Business.Concrete
 
             return model;
 
+        }
+
+        public async Task<int> GetTotalCategoriesCountAsync()
+        {
+            return await  _categoryRepo.GetAll().CountAsync();
         }
     }
 }
