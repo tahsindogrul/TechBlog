@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TechBlog.Models.Post>
+
+<div class="aside-widget">
+    <div class="section-title">
+        <h2 class="title">Popular Posts</h2>
+    </div>
+
+    @foreach (var post in Model)
+    {
+        <div class="post post-widget">
+            <a class="post-img" href="@Url.Action("PostDetails", "Post", new { id = post.Id })">
+                <img src="~/assets/images/#" alt="@post.Title">
+            </a>
+            <div class="post-body">
+                <div class="post-category">
+                    <span>@post.Category.Name</span>
+
+                </div>
+                <h3 class="post-title">
+                    <a href="@Url.Action("PostDetails", "Post", new { id = post.Id })">@post.Title</a>
+                </h3>
+            </div>
+        </div>
+    }
+</div>
