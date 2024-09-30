@@ -1,8 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Admin Home Page";
-}
+﻿@model TechBlog.Models.ViewModels.DashboardViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome Admin</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0">Admin Dashboard</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-white bg-success">
+                <a class="card-body" href="/Admin/Category/Index">
+                    <div>
+                        <h4 class="mb-1 mt-1"><span>@Model.TotalCategories</span></h4>
+                        <p class="text-muted mb-0">Total Categories</p>
+                        <i class="uil-bookmark-full"></i> <!-- İkon Ekle -->
+                    </div>
+                </a>
+            </div>
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-white bg-warning">
+                <a class="card-body" href="/Admin/BlogPost/PendingPosts">
+                    <div>
+                        <h4 class="mb-1 mt-1"><span>@Model.PendingPosts</span></h4>
+                        <p class="text-muted mb-0">Pending Posts</p>
+                        <i class="fas fa-hourglass-end"></i> <!-- İkon Ekle -->
+                    </div>
+                </a>
+            </div>
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div>
+                        <h4 class="mb-1 mt-1"><span>@Model.TotalUsers</span></h4>
+                        <p class="text-muted mb-0">Total Users</p>
+                        <i class="uil uil-users-alt font-size-18"></i> <!-- İkon Ekle -->
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-white bg-info">
+                <a class="card-body" href="/Admin/BlogPost/Index">
+                    <div>
+                        <h4 class="mb-1 mt-1"><span>@Model.TotalPosts</span></h4>
+                        <p class="text-muted mb-0">Total Posts</p>
+                        <i class="uil uil-edit font-size-18"></i> <!-- İkon Ekle -->
+                    </div>
+                </a>
+            </div>
+        </div> <!-- end col-->
+    </div> <!-- end row-->
+
 </div>
