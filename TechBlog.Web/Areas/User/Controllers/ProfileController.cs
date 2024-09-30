@@ -60,11 +60,12 @@ namespace TechBlog.Web.Areas.User.Controllers
 					Title = model.Title,
 					Content = model.Content,
 					UserId = model.UserId,
+					IsPublished=false,
 					DateCreated = DateTime.Now,
 					CategoryId = model.SelectedCategoryId,
 				};
 				_postService.Add(post);
-				return Json(new { success = true, message = "Post başarıyla eklendi!" });
+				return Json(new { success = true, message = "New post successfully added" });
 
 			}
 			var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
