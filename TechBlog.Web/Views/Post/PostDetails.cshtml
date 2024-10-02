@@ -7,13 +7,17 @@
 				<!-- post share -->
 				<div class="section-row">
 					<div class="post-share">
-						<a href="#" class="social-facebook"><i class="fa fa-facebook"></i><span>Share</span></a>
-						<a href="#" class="social-twitter"><i class="fa fa-twitter"></i><span>Tweet</span></a>
-						<a href="#" class="social-pinterest"><i class="fa fa-pinterest"></i><span>Pin</span></a>
-						<a href="#"><i class="fa fa-envelope"></i><span>Email</span></a>
+					<a href="https://x.com" class="social-twitter"><i class="fa fa-twitter"></i><span>Tweet</span></a>
+					<a href="#"><i class="fa fa-envelope"></i><span>Email</span></a>
 					</div>
 				</div>
-				<!-- /post share -->
+            <!-- /post share -->
+			<h1>@Model.Title</h1>
+
+			<figure>
+                <img src="@Model.PhotoUrl" alt="">
+            </figure>
+
 				<!-- post content -->
 				<div class="section-row">
 					<h3>@Model.Title</h3>
@@ -21,9 +25,7 @@
 					
 				</div>
 				<!-- /post content -->
-			<figure>
-				<img src="~/assets/images/media-2.jpg" alt="">
-			</figure>
+		
 				
 				<!-- post author -->
 				<div class="section-row">
