@@ -45,6 +45,7 @@ namespace TechBlog.Business.Concrete
                     Content = p.Content,
                     DateCreated = p.DateCreated,
                     User = p.User,
+                    PhotoUrl = p.PhotoUrl,
 
                 }).ToList(),
             };
