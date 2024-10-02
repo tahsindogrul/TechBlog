@@ -50,7 +50,7 @@ namespace TechBlog.Web.Areas.User.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddPost(PostCreateViewModel model)
+		public async Task<IActionResult> AddPost(PostCreateViewModel model)
 		{
 
 			if (ModelState.IsValid)
@@ -64,7 +64,21 @@ namespace TechBlog.Web.Areas.User.Controllers
 					DateCreated = DateTime.Now,
 					CategoryId = model.SelectedCategoryId,
 				};
-				_postService.Add(post);
+
+                if (model.Photo != null && model.Photo.Length > 0)
+                {
+                    var fileName = Path.GetFileName(model.Photo.FileName);
+                    var filePath = Path.Combine("wwwroot/assets/uploads", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.Photo.CopyToAsync(stream);
+                    }
+
+                    post.PhotoUrl = $"/assets/uploads/{fileName}"; 
+                }
+
+                _postService.Add(post);
 				return Json(new { success = true, message = "New post successfully added" });
 
 			}
