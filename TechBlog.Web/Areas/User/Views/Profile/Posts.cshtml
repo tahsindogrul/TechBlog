@@ -1,27 +1,33 @@
 ﻿@model IEnumerable<TechBlog.Models.Post>
 
-<h2>Kullanıcı Postları</h2>
+  
 
-<table class="table">
+
+<h2>User Posts</h2>
+
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Başlık</th>
-            <th>İçerik</th>
-            <th>Tarih</th>
-            <th>Düzenle</th>
+            <th>Photo</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Update</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var post in Model)
         {
             <tr>
+                <td> <img  style="width:250px" src="@post.PhotoUrl" alt="Photo" /></td>
                 <td>@post.Title</td>
                 <td>@post.Content</td>
                 <td>@post.DateCreated.ToShortDateString()</td>
                 <td>
-                    <a href="PostEdit?id=@post.Id" class="btn btn-primary">Düzenle</a>
+                    <a href="PostEdit?id=@post.Id" class="btn btn-primary">Update</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
