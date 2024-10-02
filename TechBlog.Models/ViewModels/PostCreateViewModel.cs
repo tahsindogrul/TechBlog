@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace TechBlog.Models.ViewModels
         public int UserId { get; set; }
         public IEnumerable<SelectListItem>? Categories { get; set; }
         public int SelectedCategoryId { get; set; }
+        public IFormFile Photo { get; set; }
     }
 }
