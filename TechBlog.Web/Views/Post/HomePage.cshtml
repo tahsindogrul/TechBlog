@@ -13,7 +13,7 @@
         {
             <div class="col-md-6">
                 <div class="post">
-                    <a class="post-img" href="@Url.Action("PostDetails","Post",new {id= recent.Id})"><img src="~/assets/images/post-1.jpg" alt=""></a>
+                    <a class="post-img" href="@Url.Action("PostDetails","Post",new {id= recent.Id})"><img src="@recent.PhotoUrl" alt=""/></a>
                     <div class="post-body">
                       
                         <h3 class="post-title"><a href="@Url.Action("PostDetails","Post",new {id= recent.Id})">@recent.Title</a></h3>
