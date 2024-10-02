@@ -24,4 +24,8 @@
     <ProjectReference Include="..\TechBlog.Repository\TechBlog.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\uploads\" />
+  </ItemGroup>
+
 </Project>
