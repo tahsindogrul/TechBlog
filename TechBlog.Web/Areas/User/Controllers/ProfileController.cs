@@ -112,6 +112,7 @@ namespace TechBlog.Web.Areas.User.Controllers
                 Content = post.Content,
                 CategoryId = post.CategoryId,
                 Categories = _categoryService.GetAll()
+				
             };
             return View(viewModel);
         }
