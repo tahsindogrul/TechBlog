@@ -42,13 +42,13 @@ namespace TechBlog.Web.Controllers
 
         public IActionResult PostDetails(int id)
         {
-            var post = _postService.GetById(id);            
-            if (post == null)
-            {
-                return NotFound();
-            }
+            //var post = _postService.GetById(id);            
+            //if (post == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(post);
+            return View(_postService.GetPostDetails(id));
         }
 
       
