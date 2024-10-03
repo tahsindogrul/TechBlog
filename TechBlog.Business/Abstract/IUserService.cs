@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TechBlog.Business.Shared.Abstract;
 using TechBlog.Dtos.UserDTOs;
 using TechBlog.Models;
+using TechBlog.Models.ViewModels;
 
 namespace TechBlog.Business.Abstract
 {
@@ -18,5 +19,6 @@ namespace TechBlog.Business.Abstract
         Task Logout();
         AppUser ProfileUpdate(AppUser appUser);
         Task<int> GetUserCountAsync();
+        Task<bool> RegisterAsync(RegisterViewModel model);
     }
 }
