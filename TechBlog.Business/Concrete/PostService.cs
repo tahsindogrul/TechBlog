@@ -29,7 +29,7 @@ namespace TechBlog.Business.Concrete
 
 		public IEnumerable<Post> GetPostsByCategory(int categoryId)
         {
-           var posts= base.GetAll(p=>p.CategoryId == categoryId && p.IsPublished ).ToList();
+           var posts= base.GetAll(p=>p.CategoryId == categoryId && p.IsPublished && !p.IsDeleted).ToList();
             foreach(var post in posts)
             {
                 post.User=_userService.GetById(post.UserId);
@@ -86,7 +86,14 @@ namespace TechBlog.Business.Concrete
 
         public IEnumerable<Post> GetPopularPosts()
         {
-            return _postRepo.GetAll().OrderByDescending(p => p.Comments.Count()).Take(3).ToList();
+            return _postRepo.GetAll().OrderByDescending(p => p.Comments.Count()).Take(5).ToList();
+        }
+
+        public Post GetPostDetails(int id)
+        {
+            var post =_postRepo.GetById(id);
+            post.User= _userService.GetById(post.UserId);
+            return post;
         }
     }
 }
