@@ -1,50 +1,46 @@
-﻿@model TechBlog.Models.ViewModels.PostCreateViewModel 
+﻿@model TechBlog.Models.ViewModels.PostCreateViewModel
 
 <h2>Create Post</h2>
 
-<form id="createPostForm">
-    <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="Title" required>
-    </div>
-    <div class="form-group">
-        <label for="content">Content:</label>
-        <textarea class="form-control" id="content" name="Content" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="selectedcategoryıd">Categories:</label>
-        <select class="form-control" id="category" name="SelectedCategoryId" >
-            <option value="">Kategori Seçiniz</option>
-            @foreach (var category in Model.Categories)
-            {
-                <option value="@category.Value">@category.Text</option>
-            }
-        </select>
-    </div>
-    <div class="form-group mt-2">
-        <label for="Photo">Photo:</label>
-        <input type="file" class="form-control"  name="Photo" required>
-    </div>
+<!-- Formun arka planını ve kenarlarını ayarlamak için bir container ekleyelim -->
+<div class="form-container">
+    <form id="createPostForm">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="Title" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea class="form-control" id="content" name="Content" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="selectedcategoryid">Categories:</label>
+            <select class="form-control" id="category" name="SelectedCategoryId">
+                <option value="">Kategori Seçiniz</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Value">@category.Text</option>
+                }
+            </select>
+        </div>
+        <div class="form-group mt-2">
+            <label for="Photo">Photo:</label>
+            <input type="file" class="form-control" name="Photo" required>
+        </div>
 
-
-    <input type="hidden" id="userId" name="UserId" value="@Model.UserId" />
-    <button type="submit" class="btn btn-primary mt-3">Gönder</button>
-</form>
+        <input type="hidden" id="userId" name="UserId" value="@Model.UserId" />
+        <button type="submit" class="btn btn-primary mt-3">Gönder</button>
+    </form>
+</div>
 
 <div id="responseMessage"></div>
 
-
-
-
-@section Scripts{
-
+@section Scripts {
     <script>
-
         $(document).ready(function () {
             $('#createPostForm').on('submit', function (e) {
-                e.preventDefault(); 
+                e.preventDefault();
 
-               
                 var formData = new FormData(this);
 
                 console.log(formData);
@@ -56,10 +52,8 @@
                     contentType: false,
                     dataType: 'json',
                     success: function (response) {
-                       
-                            $('#responseMessage').html('<div class="alert alert-success">' + response.message + '</div>');
-                            $('#createPostForm')[0].reset(); 
-                       
+                        $('#responseMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+                        $('#createPostForm')[0].reset();
                     },
                     error: function (xhr, status, error) {
                         console.error('Error:', error);
@@ -68,9 +62,47 @@
                 });
             });
         });
-
-
-
-
     </script>
 }
+
+<style>
+ 
+    .form-container {
+        background-color: #cce5ff;
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        padding: 20px; 
+        margin: 20px 0;
+    }
+
+  
+    .form-group {
+        margin-bottom: 15px; 
+    }
+
+    .form-control {
+        border-radius: 5px; /
+        border: 1px solid #ced4da; 
+    }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+        }
+
+  
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; 
+            border-color: #0056b3; 
+        }
+
+    
+    #responseMessage {
+        margin-top: 20px; 
+    }
+</style>
