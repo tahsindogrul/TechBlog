@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using TechBlog.Business.Abstract;
 using TechBlog.Business.Shared.Concrete;
 using TechBlog.Dtos.UserDTOs;
 using TechBlog.Models;
+using TechBlog.Models.ViewModels;
 using TechBlog.Repository.Shared.Abstract;
 
 namespace TechBlog.Business.Concrete
@@ -20,6 +22,7 @@ namespace TechBlog.Business.Concrete
     {
         private readonly IRepository<AppUser> _userRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
 
         public UserService(IRepository<AppUser> userRepo, IHttpContextAccessor httpContextAccessor) : base(userRepo)
         {
@@ -39,7 +42,7 @@ namespace TechBlog.Business.Concrete
 
         public Task<int> GetUserCountAsync()
         {
-            return _userRepo.GetAll().Where(u=>u.IsAdmin==false).CountAsync();
+            return _userRepo.GetAll().Where(u => u.IsAdmin == false).CountAsync();
         }
 
         public async Task<LoginDTO> Login(LoginDTO loginDTO)
@@ -83,7 +86,37 @@ namespace TechBlog.Business.Concrete
             currentUser.UserName = user.UserName;
             currentUser.Email = user.Email;
             currentUser.Password = user.Password;
+            currentUser.About = user.About;
             return Update(currentUser);
+        }
+
+
+        public async Task<bool> RegisterAsync(RegisterViewModel model)
+        {
+            var existingUser = _userRepo.GetFirstOrDefault(u => u.Email == model.Email);
+
+            if (existingUser != null)
+            {
+                return false;
+            }
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                return false; 
+            }
+
+            var newUser = new AppUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                Password = model.Password,
+                DateCreated = DateTime.Now
+            };
+
+            _userRepo.Add(newUser);
+            return true;
+
+
         }
     }
 }
