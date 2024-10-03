@@ -4,6 +4,16 @@
     ViewData["Title"] = "Profile";
 }
 
+@section Styles{
+    <style>
+        #about {
+            width: 100%;
+            height: 190px;
+            resize: none; 
+        }   
+
+    </style>
+}
 
 <div>
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -37,6 +47,12 @@
                             <input type="text" class="form-control" id="modalPassword" required pattern=".{8,}" title="Lutfen en az 8 karakter giriniz" minlength="8">
 
                         </div>
+
+                        <div class="form-group">
+                            <label for="modalAbout" class="col-form-label">About:</label>
+                            <textarea type="text" class="form-control" id="modalAbout"> </textarea>
+                        </div>
+                      
 
                     </form>
                 </div>
@@ -106,6 +122,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="labels">About</label>
+                            <div class="input-group">
+                                <textarea class="form-control" id="about" placeholder="About" name="About" readonly>@Model.About</textarea>
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                        </div>
 
 
 
@@ -129,6 +153,7 @@
                     $('#modalPassword').val($('#psw').val());
                     $('#modalEmail').val($('#email').val());
                     $('#modalUserName').val($('#usr').val());
+                    $('#modalAbout').val($('#about').val());
                     $('#editModal').modal('show');
                 });
 
@@ -147,16 +172,18 @@
                     $('#psw').val($('#modalPassword').val());
                     $('#email').val($('#modalEmail').val());
                     $('#usr').val($('#modalUserName').val());
+                    $('#about').val($('#modalAbout').val());
 
 
                     $.ajax({
-                        url: 'ProfileUpdate',
+                        url: 'Profile/ProfileUpdate',
                         method: 'POST',
                         data: {
-                            id: $("#appUserId").val(),
-                            username: $("#modalUserName").val(),
-                            password: $("#modalPassword").val(),
-                            email: $("#modalEmail").val(),
+                            Id: $("#appUserId").val(),
+                            UserName: $("#modalUserName").val(),
+                            Password: $("#modalPassword").val(),
+                            Email: $("#modalEmail").val(),
+                            About: $("#modalAbout").val(),
 
                         },
                         success: function (response) {
