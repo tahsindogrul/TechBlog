@@ -9,7 +9,7 @@
     {
         <div class="post post-widget">
             <a class="post-img" href="@Url.Action("PostDetails", "Post", new { id = post.Id })">
-                <img src="~/assets/images/#" alt="@post.Title">
+                <img src="@post.PhotoUrl" alt="@post.Title">
             </a>
             <div class="post-body">
                 <div class="post-category">
