@@ -20,6 +20,8 @@ namespace TechBlog.Business.Abstract
 
         IEnumerable<Post> GetPopularPosts();
 
+       Post GetPostDetails(int id);
+
 
     }
 
