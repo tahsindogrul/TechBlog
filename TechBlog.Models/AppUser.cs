@@ -14,6 +14,7 @@ namespace TechBlog.Models
         public string Password { get; set; }
         public string? ProfilePicture { get; set; }
         public bool IsAdmin { get; set; }=false;
+        public string? About { get; set; }
         public DateTime DateCreated { get; set; }= DateTime.Now;
         public DateTime DateUpdated { get; set; } = DateTime.Now;
         public virtual ICollection<Post> Posts { get; set; }= new List<Post>();
