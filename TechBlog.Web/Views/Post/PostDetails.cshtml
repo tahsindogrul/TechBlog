@@ -30,7 +30,7 @@
 				<!-- post author -->
 				<div class="section-row">
 					<div class="section-title">
-						<h3 class="title">About <a href="author.html">John Doe</a></h3>
+						<h3 class="title">About @Model.User.UserName  </h3>
 					</div>
 					<div class="author media">
 						<div class="media-left">
@@ -39,12 +39,14 @@
 							</a>
 						</div>
 						<div class="media-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p>@Model.User.About</p>
 							
 						</div>
 					</div>
 				</div>
 				<!-- /post author -->
+
+
 			<!-- post comments -->
 	<div class="section-row">
     <div class="section-title">
