@@ -7,6 +7,7 @@ using TechBlog.Business.Abstract;
 using TechBlog.Business.Concrete;
 using TechBlog.Dtos.UserDTOs;
 using TechBlog.Models;
+using TechBlog.Models.ViewModels;
 
 namespace TechBlog.Web.Controllers
 {
@@ -60,7 +61,31 @@ namespace TechBlog.Web.Controllers
             return Json(new { success = true });
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userService.RegisterAsync(model);
+                if (result)
+                {
+
+                    TempData["SuccessMessage"] = "Registration successful! You can now log in.";
+                    return RedirectToAction("Register");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Registration failed. Please try again.");
+                }
+            }
+            return View(model);
+        }
     }
 }
 
