@@ -86,6 +86,7 @@ namespace TechBlog.Web.Areas.User.Controllers
 			return Json(new { success = false, message = string.Join(", ", errors) });
 		}
 
+
 		public IActionResult Posts()
 		{
 			var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -93,6 +94,8 @@ namespace TechBlog.Web.Areas.User.Controllers
 			return View(posts);
 
 		}
+
+
 
 		[HttpGet]
 		public IActionResult PostEdit(int id)

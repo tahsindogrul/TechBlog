@@ -28,7 +28,6 @@ namespace TechBlog.Web.Controllers
                 }
             }
 
-            // Eğer admin değilse ya da bu path /Admin ile başlamıyorsa normal işleyişe devam et
             base.OnActionExecuting(context);
         }
 
@@ -42,11 +41,7 @@ namespace TechBlog.Web.Controllers
 
         public IActionResult PostDetails(int id)
         {
-            //var post = _postService.GetById(id);            
-            //if (post == null)
-            //{
-            //    return NotFound();
-            //}
+        
 
             return View(_postService.GetPostDetails(id));
         }
