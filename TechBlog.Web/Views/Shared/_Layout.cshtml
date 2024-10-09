@@ -61,16 +61,9 @@
             <div class="container">
                 <!-- nav -->
                 <ul class="nav-menu">
-                    <li class="has-dropdown">
-                        <a href="index.html">Home</a>
-                        <div class="dropdown">
-                            <div class="dropdown-body">
-                                <ul class="dropdown-list">
-                                    <li><a href="blog-post.html">Post page</a></li>                               
-                                    <li><a href="contact.html">Contacts</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    <li >
+                        <a href="/Post/HomePage">Home</a>
+                 
                     </li>
                     <li class="has-dropdown megamenu">
                         <a href="#">Categories</a>
@@ -92,9 +85,7 @@
 
                     </li>
 
-                    <li><a href="#">Technology</a></li>
-                    <li><a href="#">Health</a></li>
-                    <li><a href="#">Travel</a></li>
+             
 
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -115,6 +106,9 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link" href="/User/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/User/Register">Register</a>
                         </li>
                     }
                 </ul>
