@@ -13,41 +13,41 @@ using TechBlog.Repository.Shared.Abstract;
 
 namespace TechBlog.Business.Concrete
 {
-    public class PostService:Service<Post>,IPostService
+    public class PostService : Service<Post>, IPostService
     {
         private readonly IRepository<Post> _postRepo;
         private readonly IUserService _userService;
-      
 
 
-		public PostService(IRepository<Post> postRepo, IUserService userService) : base(postRepo)
-		{
-			_postRepo = postRepo;
-			_userService = userService;
-			
-		}
 
-		public IEnumerable<Post> GetPostsByCategory(int categoryId)
+        public PostService(IRepository<Post> postRepo, IUserService userService) : base(postRepo)
         {
-           var posts= base.GetAll(p=>p.CategoryId == categoryId && p.IsPublished && !p.IsDeleted).ToList();
-            foreach(var post in posts)
-            {
-                post.User=_userService.GetById(post.UserId);
-           
+            _postRepo = postRepo;
+            _userService = userService;
 
-			}
+        }
+
+        public IEnumerable<Post> GetPostsByCategory(int categoryId)
+        {
+            var posts = base.GetAll(p => p.CategoryId == categoryId && p.IsPublished && !p.IsDeleted).ToList();
+            foreach (var post in posts)
+            {
+                post.User = _userService.GetById(post.UserId);
+
+
+            }
             return posts;
         }
 
-         
+
         public IEnumerable<Post> GetRecentPosts(int count)
         {
-            var recentpost= _postRepo.GetAll().Where(p=>p.IsPublished).OrderByDescending(p=>p.DateCreated).Take(count).ToList();
-            foreach(var recent in recentpost)
+            var recentpost = _postRepo.GetAll().Where(p => p.IsPublished).OrderByDescending(p => p.DateCreated).Take(count).ToList();
+            foreach (var recent in recentpost)
             {
-               
-                recent.User= _userService.GetById(recent.UserId);
-			}
+
+                recent.User = _userService.GetById(recent.UserId);
+            }
             return recentpost;
         }
 
@@ -59,29 +59,29 @@ namespace TechBlog.Business.Concrete
                 .FirstOrDefault(p => p.Id == id);
         }
 
-		public IEnumerable<Post> GetPostsByUserId(int userId)
-		{
-          return  _postRepo.GetAll().Where(p => p.UserId == userId).ToList();
-		}
+        public IEnumerable<Post> GetPostsByUserId(int userId)
+        {
+            return _postRepo.GetAll().Where(p => p.UserId == userId).ToList();
+        }
 
         public IEnumerable<Post> GetAllPosts()
         {
-            return _postRepo.GetAll().Where(p=>p.IsPublished).Include(p=>p.User).ToList();
+            return _postRepo.GetAll().Where(p => p.IsPublished).Include(p => p.User).ToList();
         }
 
         public IEnumerable<Post> GetPendingPosts()
         {
-            return _postRepo.GetAll().Where(p=>p.IsPublished == false && !p.IsDeleted).Include(p=>p.User).ToList();
+            return _postRepo.GetAll().Where(p => p.IsPublished == false && !p.IsDeleted).Include(p => p.User).ToList();
         }
 
         public Task<int> GetTotalPostCountAsync()
         {
-            return _postRepo.GetAll().Where(p=>p.IsPublished).CountAsync();
+            return _postRepo.GetAll().Where(p => p.IsPublished).CountAsync();
         }
 
         public Task<int> GetPendingPostsCountAsync()
         {
-            return _postRepo.GetAll().Where(p=>p.IsPublished==false).CountAsync();
+            return _postRepo.GetAll().Where(p => p.IsPublished == false).CountAsync();
         }
 
         public IEnumerable<Post> GetPopularPosts()
@@ -91,8 +91,12 @@ namespace TechBlog.Business.Concrete
 
         public Post GetPostDetails(int id)
         {
-            var post =_postRepo.GetById(id);
-            post.User= _userService.GetById(post.UserId);
+            var post = _postRepo.GetAll()
+          .Include(p => p.User)
+          .Include(p => p.Comments)
+          .ThenInclude(c => c.User)
+          .FirstOrDefault(p => p.Id == id);
+
             return post;
         }
     }
